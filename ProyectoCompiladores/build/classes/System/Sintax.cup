@@ -1,0 +1,120 @@
+package compiladores;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
+:};
+
+terminal  InicioPrograma, Boton, Salto, EtiquetaTexto, CajaTexto, Tabla, EtiquetaTabla, Fila,
+    CeldaEncabezado, Celda, AbreEtiqueta, CierraEtiqueta, Identificador, Borde, Igual, Comilla,
+    Numero, ERROR, Linea;
+non terminal INICIO, ESTRUCTURA, TAG_NORMAL, TAG_TABLAS, S_SALTO, S_BOTON, S_ETIQUETA_TEXTO,
+S_CAJA_TEXTO, S_TABLA, S_ETIQUETA_TABLA, S_FILA, S_CELDA_ENCABEZADO, S_CELDA, S_ID, S_NUM, S_VAR, S_BORDE;
+
+start with INICIO;
+
+INICIO::=
+    InicioPrograma ESTRUCTURA 
+;
+
+ESTRUCTURA::=
+    TAG_NORMAL |
+    TAG_TABLAS |
+    TAG_NORMAL TAG_TABLAS |
+    TAG_TABLAS TAG_NORMAL
+;
+
+TAG_NORMAL::=
+    TAG_NORMAL S_SALTO |
+    TAG_NORMAL S_BOTON |
+    TAG_NORMAL S_ETIQUETA_TEXTO |
+    TAG_NORMAL S_CAJA_TEXTO |    
+    S_SALTO |
+    S_BOTON |
+    S_ETIQUETA_TEXTO |
+    S_CAJA_TEXTO
+    ;
+
+S_SALTO::=
+    AbreEtiqueta Salto CierraEtiqueta
+;
+
+S_BOTON::=
+     AbreEtiqueta Boton S_VAR CierraEtiqueta Boton
+;
+
+S_ETIQUETA_TEXTO::=
+    AbreEtiqueta EtiquetaTexto S_VAR CierraEtiqueta EtiquetaTexto
+;
+
+S_CAJA_TEXTO::=
+     AbreEtiqueta CajaTexto S_VAR CierraEtiqueta CajaTexto
+;
+
+TAG_TABLAS::=
+    TAG_TABLAS S_TABLA |
+    S_TABLA
+;
+
+S_TABLA::= 
+    AbreEtiqueta Tabla S_ETIQUETA_TABLA S_FILA CierraEtiqueta Tabla |
+    AbreEtiqueta Tabla S_BORDE S_ETIQUETA_TABLA S_FILA CierraEtiqueta Tabla |    
+    AbreEtiqueta Tabla S_FILA CierraEtiqueta Tabla |
+    AbreEtiqueta Tabla S_BORDE S_FILA CierraEtiqueta Tabla |
+    AbreEtiqueta Tabla S_ETIQUETA_TABLA CierraEtiqueta Tabla |
+    AbreEtiqueta Tabla S_BORDE S_ETIQUETA_TABLA CierraEtiqueta Tabla
+;
+
+S_ETIQUETA_TABLA::= 
+    AbreEtiqueta EtiquetaTabla S_VAR CierraEtiqueta EtiquetaTabla 
+;
+
+S_FILA ::=
+    S_FILA AbreEtiqueta Fila S_CELDA_ENCABEZADO CierraEtiqueta Fila |
+    S_FILA AbreEtiqueta Fila S_CELDA CierraEtiqueta Fila |
+    AbreEtiqueta Fila S_CELDA_ENCABEZADO CierraEtiqueta Fila |
+    AbreEtiqueta Fila S_CELDA CierraEtiqueta Fila    
+;
+
+S_CELDA_ENCABEZADO::=
+    S_CELDA_ENCABEZADO AbreEtiqueta CeldaEncabezado S_VAR CierraEtiqueta CeldaEncabezado |
+    AbreEtiqueta CeldaEncabezado S_VAR CierraEtiqueta CeldaEncabezado
+;
+S_CELDA ::=
+    S_CELDA AbreEtiqueta Celda S_VAR CierraEtiqueta Celda |
+    AbreEtiqueta Celda S_VAR CierraEtiqueta Celda 
+;
+
+S_VAR::=
+    S_ID |
+    S_NUM |
+    S_ID S_NUM |
+    S_NUM S_ID
+;
+
+
+
+S_ID  ::=
+    S_ID Identificador |
+    Identificador
+;
+
+S_NUM ::=
+    S_NUM Numero |
+    Numero
+;
+
+S_BORDE ::=
+    Borde Igual Comilla Identificador Comilla
+;
+
