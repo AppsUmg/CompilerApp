@@ -21,6 +21,7 @@ public class Settings {
     public static String IconApp = "icon";
     public static Sms msg = new Sms();
     public static AppLog AppLog = new AppLog(AppName, true);
+    public static String PathUri = "C:\\Users\\"+System.getProperty("user.name")+"\\AppData\\LocalLow\\Temp\\COMPILERS APP\\";
     
     
      public void ConfigureForm(JFrame Frame) {

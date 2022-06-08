@@ -6,15 +6,12 @@
 package Views;
 
 import System.Compilacion;
+import System.CreateHTML;
 import System.Settings;
-import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import necesario.RSFileChooser;
@@ -28,7 +25,10 @@ public class Form_CargarArchivo extends javax.swing.JFrame {
     private boolean ArchivoCargado;
     private File Archivo;
     private String TempData;
-    
+    private String ErroresLexicos;
+    private String ErroresSintacticos;
+    private String HTML;
+
     public Form_CargarArchivo() {
         initComponents();
         this.BtnLoad.setFocusPainted(false);
@@ -48,6 +48,12 @@ public class Form_CargarArchivo extends javax.swing.JFrame {
         BtnLoad = new rojeru_san.complementos.ButtonHover();
         jLabel1 = new javax.swing.JLabel();
         rSButtonMaterialTwo2 = new RSMaterialComponent.RSButtonMaterialTwo();
+        rSButtonMaterialTwo3 = new RSMaterialComponent.RSButtonMaterialTwo();
+        BtnErrorLexico = new RSMaterialComponent.RSButtonMaterialTwo();
+        BtnErrorSintactico = new RSMaterialComponent.RSButtonMaterialTwo();
+        rSButtonMaterialTwo6 = new RSMaterialComponent.RSButtonMaterialTwo();
+        jSeparator1 = new javax.swing.JSeparator();
+        rSButtonMaterialTwo7 = new RSMaterialComponent.RSButtonMaterialTwo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,7 +62,7 @@ public class Form_CargarArchivo extends javax.swing.JFrame {
         Previsualizacion.setEditable(false);
         Previsualizacion.setBackground(new java.awt.Color(0, 0, 0));
         Previsualizacion.setColumns(20);
-        Previsualizacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Previsualizacion.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         Previsualizacion.setForeground(new java.awt.Color(0, 204, 51));
         Previsualizacion.setRows(5);
         Previsualizacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -73,14 +79,62 @@ public class Form_CargarArchivo extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("SELECCIONA UN ARCHIVO");
+        jLabel1.setText("COMPILER");
 
         rSButtonMaterialTwo2.setBackground(new java.awt.Color(183, 28, 28));
-        rSButtonMaterialTwo2.setText("RESTART");
+        rSButtonMaterialTwo2.setText("HOME");
         rSButtonMaterialTwo2.setBackgroundHover(new java.awt.Color(198, 40, 40));
         rSButtonMaterialTwo2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rSButtonMaterialTwo2ActionPerformed(evt);
+            }
+        });
+
+        rSButtonMaterialTwo3.setBackground(new java.awt.Color(0, 105, 92));
+        rSButtonMaterialTwo3.setText("CREAR HTML");
+        rSButtonMaterialTwo3.setBackgroundHover(new java.awt.Color(0, 105, 92));
+        rSButtonMaterialTwo3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonMaterialTwo3ActionPerformed(evt);
+            }
+        });
+
+        BtnErrorLexico.setBackground(new java.awt.Color(0, 105, 92));
+        BtnErrorLexico.setText("ERRORES LEXICOS");
+        BtnErrorLexico.setBackgroundHover(new java.awt.Color(0, 105, 92));
+        BtnErrorLexico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnErrorLexicoActionPerformed(evt);
+            }
+        });
+
+        BtnErrorSintactico.setBackground(new java.awt.Color(0, 105, 92));
+        BtnErrorSintactico.setText("ERRORES SINTACTICOS");
+        BtnErrorSintactico.setBackgroundHover(new java.awt.Color(0, 105, 92));
+        BtnErrorSintactico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnErrorSintacticoActionPerformed(evt);
+            }
+        });
+
+        rSButtonMaterialTwo6.setBackground(new java.awt.Color(0, 105, 92));
+        rSButtonMaterialTwo6.setText("INTEGRANTES");
+        rSButtonMaterialTwo6.setBackgroundHover(new java.awt.Color(0, 105, 92));
+        rSButtonMaterialTwo6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonMaterialTwo6ActionPerformed(evt);
+            }
+        });
+
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+        jSeparator1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
+        rSButtonMaterialTwo7.setBackground(new java.awt.Color(0, 105, 92));
+        rSButtonMaterialTwo7.setText("REINICIAR");
+        rSButtonMaterialTwo7.setBackgroundHover(new java.awt.Color(0, 105, 92));
+        rSButtonMaterialTwo7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonMaterialTwo7ActionPerformed(evt);
             }
         });
 
@@ -89,31 +143,47 @@ public class Form_CargarArchivo extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addComponent(BtnLoad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1)
+                    .addComponent(BtnLoad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(rSButtonMaterialTwo2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
-                        .addGap(85, 85, 85)))
+                        .addGap(0, 0, 0)
+                        .addComponent(rSButtonMaterialTwo3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(BtnErrorLexico, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(BtnErrorSintactico, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(rSButtonMaterialTwo6, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(rSButtonMaterialTwo7, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 15, Short.MAX_VALUE))
+                    .addComponent(jSeparator1))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(rSButtonMaterialTwo2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rSButtonMaterialTwo2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rSButtonMaterialTwo3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnErrorLexico, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnErrorSintactico, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rSButtonMaterialTwo6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rSButtonMaterialTwo7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BtnLoad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -127,27 +197,24 @@ public class Form_CargarArchivo extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(562, 633));
+        setSize(new java.awt.Dimension(805, 633));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLoadActionPerformed
 
-        
         if (this.ArchivoCargado) { //ARCHIVO CARGADO LISTO PARA EMPEZAR A COMPILAR
             try {
                 Compilacion Compilacion = new Compilacion();
-                
-                String show = "se ha realizado el analisis lexico,\n para verificar ve al menu ->Resultado ->Errores lexicos \n \n \n";
-                Previsualizacion.setText(Compilacion.AnalisisLexico(Archivo));
-                
-                
-                //show = show + "se ha realizado el analisis sintactico, \n para verificar ve al menu ->Resultado ->Errores sintacticos";
-               // Previsualizacion.setText(Compilacion.analisisSintactico(TempData));
+           
+                this.ErroresLexicos = Compilacion.AnalisisLexico(Archivo,true);
+                this.ErroresSintacticos = Compilacion.analisisSintactico(TempData);
+                Settings.msg.smsDialog("COMPILACION CORRECTA: \nPuedes Ver los errores lexicos y sintacticos\nen los botones de la parte superior.");
+                this.BtnLoad.setText("COMPILACION FINALIZADA.");
+                new CreateHTML().generarHtml(TempData);
             } catch (Exception e) {
                 Settings.AppLog.Write("Form_CargarArchivo.CompilarArchivo", e, true);
             }
-
         }
         if (this.ArchivoCargado != true) { //ARCHIVO NO SE ENCUENTRA CARGADO BUSCAR
             RSFileChooser chooser = new RSFileChooser();
@@ -177,14 +244,45 @@ public class Form_CargarArchivo extends javax.swing.JFrame {
         }
 
 
-
-        
-        
     }//GEN-LAST:event_BtnLoadActionPerformed
 
     private void rSButtonMaterialTwo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMaterialTwo2ActionPerformed
-        System.exit(0);
+       new Form_Home().setVisible(true);
+       dispose();
     }//GEN-LAST:event_rSButtonMaterialTwo2ActionPerformed
+
+    private void rSButtonMaterialTwo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMaterialTwo3ActionPerformed
+        new CreateHTML().generarHtml(TempData);
+    }//GEN-LAST:event_rSButtonMaterialTwo3ActionPerformed
+
+    private void BtnErrorLexicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnErrorLexicoActionPerformed
+        new CreateHTML().generarHTMLErroresLexicos(ErroresLexicos,Archivo);
+    }//GEN-LAST:event_BtnErrorLexicoActionPerformed
+
+    private void BtnErrorSintacticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnErrorSintacticoActionPerformed
+        new CreateHTML().generarHTMLErroresSintacticos(ErroresSintacticos);
+    }//GEN-LAST:event_BtnErrorSintacticoActionPerformed
+
+    private void rSButtonMaterialTwo6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMaterialTwo6ActionPerformed
+
+        Settings.msg.smsDialog("INTEGRANTES:\n\n"
+                + "Hubert Orellana (1890-17-13038)\n"
+                + "Kevin Rosales (1890-19-5148)\n"
+                + "Susan Roldan (1890-19-19031)\n"
+                + "Miyatovich Gamarro (1890-19-12035)\n"
+                + "Jayron Rodriguez (1890-18-12571)\n"
+                + "Oswaldo Morales (1890-19-14492)");
+    }//GEN-LAST:event_rSButtonMaterialTwo6ActionPerformed
+
+    private void rSButtonMaterialTwo7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMaterialTwo7ActionPerformed
+      this.ArchivoCargado = false;
+      this.BtnLoad.setText("CARGAR ARCHIVO");
+      this.ErroresLexicos = "";
+      this.TempData = "";
+      this.ErroresSintacticos = "";
+      this.Previsualizacion.setText("");
+      
+    }//GEN-LAST:event_rSButtonMaterialTwo7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,11 +320,17 @@ public class Form_CargarArchivo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private RSMaterialComponent.RSButtonMaterialTwo BtnErrorLexico;
+    private RSMaterialComponent.RSButtonMaterialTwo BtnErrorSintactico;
     private rojeru_san.complementos.ButtonHover BtnLoad;
     private javax.swing.JTextArea Previsualizacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private RSMaterialComponent.RSButtonMaterialTwo rSButtonMaterialTwo2;
+    private RSMaterialComponent.RSButtonMaterialTwo rSButtonMaterialTwo3;
+    private RSMaterialComponent.RSButtonMaterialTwo rSButtonMaterialTwo6;
+    private RSMaterialComponent.RSButtonMaterialTwo rSButtonMaterialTwo7;
     // End of variables declaration//GEN-END:variables
 }

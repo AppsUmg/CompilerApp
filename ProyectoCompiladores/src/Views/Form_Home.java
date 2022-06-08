@@ -110,7 +110,7 @@ public class Form_Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
-        new Form_CargarArchivo().setVisible(true);
+        new Form_Menu().setVisible(true);
         dispose();
     }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
 

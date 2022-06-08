@@ -30,7 +30,7 @@ public class Compilacion {
     public Compilacion() {
     }
 
-    public String AnalisisLexico(File Archivo) {
+    public String AnalisisLexico(File Archivo,boolean Tipo) {
         Reader lector;
         try {
             lector = new BufferedReader(new FileReader(Archivo));
@@ -76,7 +76,13 @@ public class Compilacion {
                         resultado += "Token: \t \t <" + tokens + "> \n";
                         break;
                 }
-                return HTML;
+                if (Tipo) {
+                    return analisisLexico;
+                }
+                if (Tipo!=true) {
+                    return HTML;
+                }
+                
             }
 
         } catch (FileNotFoundException ex) {

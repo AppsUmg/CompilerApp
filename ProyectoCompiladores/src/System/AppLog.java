@@ -83,7 +83,7 @@ public class AppLog {
 
                 //Escribimos en el archivo
                 linea.println("\n============================================================= "
-                        + "\n                          LOG ACEITERA"
+                        + "\n                          LOG COMPILER"
                         + "\n=============================================================");
 
                 if (Type.isEmpty()) {
@@ -92,7 +92,7 @@ public class AppLog {
                     linea.println(new SimpleDateFormat("HH:mm:ss").format(new Date()) + "|" + Type + "| " + Txt);
                     if (LogConsole) {
                         System.out.println("\n============================================================= "
-                                + "\n                          LOG ACEITERA"
+                                + "\n                          LOG COMPILER"
                                 + "\n=============================================================");
                         System.out.println(Contador + ")" + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "|" + Type + "| " + Txt);
                         Contador++;
@@ -151,7 +151,7 @@ public class AppLog {
 
                 //Escribimos en el archivo
                 linea.println("\n============================================================= "
-                        + "\n                          LOG ACEITERA"
+                        + "\n                          LOG COMPILER"
                         + "\n=============================================================");
 
                 if (Type.isEmpty()) {
@@ -160,7 +160,7 @@ public class AppLog {
                     linea.println(new SimpleDateFormat("HH:mm:ss").format(new Date()) + "|" + Type + "| ERROR: " + sw.toString());
                     if (LogConsole) {
                         System.out.println("\n============================================================= "
-                                + "\n                          LOG ACEITERA"
+                                + "\n                          LOG COMPILER"
                                 + "\n=============================================================");
                         System.out.println(Contador + ")" + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "|" + Type + "| ERROR:" + sw.toString());
                         Contador++;
