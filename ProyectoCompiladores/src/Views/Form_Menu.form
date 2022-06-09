@@ -101,11 +101,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="MANUAL DE USUARIO"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rSButtonMaterialShadow2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="RSMaterialComponent.RSButtonMaterialShadow" name="rSButtonMaterialShadow3">
           <Properties>
             <Property name="text" type="java.lang.String" value="MANUAL TECNICO"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rSButtonMaterialShadow3ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="RSMaterialComponent.RSButtonMaterialShadow" name="rSButtonMaterialShadow4">
           <Properties>

@@ -1,1 +1,0 @@
-System.Cup.sym

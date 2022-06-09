@@ -5,6 +5,7 @@
  */
 package System.sms;
 
+import System.Settings;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.Icon;
@@ -60,10 +61,10 @@ public class Sms {
     
     public void smsDialog(String Text) {
         try {
-            Icono =new ImageIcon(getClass().getResource("/System/Sms/sms2_64x64.png"));
+            Icono =new ImageIcon(getClass().getResource("sms2_64x64.png"));
             JOptionPane.showMessageDialog(null, Text, "SISTEMA", JOptionPane.INFORMATION_MESSAGE, Icono);
         } catch (Exception e) {
-            System.out.println("smsDialog:\n"+e);
+            Settings.AppLog.Write("Sms.smsDialog", e,false);
         }
     }
     

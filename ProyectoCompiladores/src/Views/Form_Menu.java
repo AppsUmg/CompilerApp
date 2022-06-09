@@ -5,6 +5,7 @@
  */
 package Views;
 
+import System.CreateHTML;
 import System.Settings;
 
 /**
@@ -52,8 +53,18 @@ public class Form_Menu extends javax.swing.JFrame {
         });
 
         rSButtonMaterialShadow2.setText("MANUAL DE USUARIO");
+        rSButtonMaterialShadow2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonMaterialShadow2ActionPerformed(evt);
+            }
+        });
 
         rSButtonMaterialShadow3.setText("MANUAL TECNICO");
+        rSButtonMaterialShadow3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonMaterialShadow3ActionPerformed(evt);
+            }
+        });
 
         rSButtonMaterialShadow4.setText("INTEGRANTES");
         rSButtonMaterialShadow4.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +140,15 @@ public class Form_Menu extends javax.swing.JFrame {
                 + "Jayron Rodriguez (1890-18-12571)\n"
                 + "Oswaldo Morales (1890-19-14492)");
     }//GEN-LAST:event_rSButtonMaterialShadow4ActionPerformed
+
+    private void rSButtonMaterialShadow2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMaterialShadow2ActionPerformed
+        new CreateHTML().ENLACE_WEB("https://drive.google.com/drive/folders/1UIIhk23kszsCrtXwYBg_1BA-owg-Bja9?usp=sharing");
+    }//GEN-LAST:event_rSButtonMaterialShadow2ActionPerformed
+
+    private void rSButtonMaterialShadow3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMaterialShadow3ActionPerformed
+
+      new CreateHTML().ENLACE_WEB("https://drive.google.com/drive/folders/1i4s__F48Gayl2vVQpzCV_yervIaUnyBo?usp=sharing");
+    }//GEN-LAST:event_rSButtonMaterialShadow3ActionPerformed
 
     /**
      * @param args the command line arguments

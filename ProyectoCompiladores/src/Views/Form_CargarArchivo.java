@@ -4,6 +4,7 @@ package Views;
 import System.Compilacion;
 import System.CreateHTML;
 import System.Settings;
+import System.sms.Sms;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -261,13 +262,18 @@ public class Form_CargarArchivo extends javax.swing.JFrame {
 
     private void rSButtonMaterialTwo6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMaterialTwo6ActionPerformed
 
-        Settings.msg.smsDialog("INTEGRANTES:\n\n"
-                + "Hubert Orellana (1890-17-13038)\n"
-                + "Kevin Rosales (1890-19-5148)\n"
-                + "Susan Roldan (1890-19-19031)\n"
-                + "Miyatovich Gamarro (1890-19-12035)\n"
-                + "Jayron Rodriguez (1890-18-12571)\n"
-                + "Oswaldo Morales (1890-19-14492)");
+
+        try {
+            new Sms().smsDialog("INTEGRANTES:\n\n"
+                    + "Hubert Orellana (1890-17-13038)\n"
+                    + "Kevin Rosales (1890-19-5148)\n"
+                    + "Susan Roldan (1890-19-19031)\n"
+                    + "Miyatovich Gamarro (1890-19-12035)\n"
+                    + "Jayron Rodriguez (1890-18-12571)\n"
+                    + "Oswaldo Morales (1890-19-14492)");
+        } catch (Exception e) {
+            Settings.AppLog.Write("smsDialog", e,true);
+        }
     }//GEN-LAST:event_rSButtonMaterialTwo6ActionPerformed
 
     private void rSButtonMaterialTwo7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMaterialTwo7ActionPerformed
