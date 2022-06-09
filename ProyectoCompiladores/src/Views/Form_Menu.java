@@ -116,6 +116,7 @@ public class Form_Menu extends javax.swing.JFrame {
 
     private void rSButtonMaterialShadow1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMaterialShadow1ActionPerformed
         new Form_CargarArchivo().setVisible(true);
+        dispose();
     }//GEN-LAST:event_rSButtonMaterialShadow1ActionPerformed
 
     private void rSButtonMaterialShadow4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMaterialShadow4ActionPerformed
